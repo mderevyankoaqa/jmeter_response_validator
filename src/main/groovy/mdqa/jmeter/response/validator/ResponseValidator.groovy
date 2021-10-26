@@ -1,43 +1,44 @@
 package mdqa.jmeter.response.validator
 
-import mdqa.jmeter.response.validator.models.Response
-import org.apache.jmeter.threads.JMeterContext
+import mdqa.jmeter.response.validator.models.TestContext
 
 class ResponseValidator extends ValidatorBase {
 
-    private Response response
+    protected String validationMessage = ""
 
-    protected ResponseValidator(JMeterContext ctx) {
+    protected ResponseValidator(TestContext ctx) {
         super(ctx)
     }
 
-    ResponseValidator thisResponse(Response response) {
-        this.response = response
-        return this
-    }
-
-    ResponseValidator shouldHasCode(String expectedCode) {
-        String actualCode = response.code
+    ResponseValidator shouldHaveCode(String expectedCode) {
+        String actualCode = this.testContext.response.code
 
         if (expectedCode != actualCode) {
-            this.validationMessage += "ERROR code: Expected <" + expectedCode + "> but we got instead  " + actualCode + ";"
-
+            this.validationMessage += "ERROR code: Expected <" + expectedCode + "> but we got instead  " + actualCode + "."
         }
 
         return this
     }
 
-    ResponseValidator shouldContainsText(String expectedText) {
-        if (!this.response.body.contains(expectedText)) {
-            this.validationMessage += "ERROR in body: There is no text <" + expectedText + "> in response;"
+    ResponseValidator shouldContainText(String expectedText) {
+        if (!this.testContext.response.body.contains(expectedText)) {
+            this.validationMessage += "ERROR in body: There is no text <" + expectedText + "> in response."
         }
 
         return this
     }
 
-    ResponseValidator shouldNotContainsText(String unexpected) {
-        if (this.response.body.contains(unexpected)) {
-            this.validationMessage += "ERROR in body: There is unexpected text <" + unexpected + "> in response;"
+    ResponseValidator shouldContainValuesWithOrLogic(String expectedV1, String expectedV2) {
+        if (!this.testContext.response.body.contains(expectedV1) || !this.testContext.response.body.contains(expectedV2)) {
+            this.validationMessage += "ERROR in body: There is no text <" + expectedV1 + "> OR <" + expectedV2 + ">  in response."
+        }
+
+        return this
+    }
+
+    ResponseValidator shouldContainValuesWithOrLogic(String expectedV1, String expectedV2, String expectedV3) {
+        if (!this.testContext.response.body.contains(expectedV1) || !this.testContext.response.body.contains(expectedV2) || !this.testContext.response.body.contains(expectedV3)) {
+            this.validationMessage += "ERROR in body: There is no text <" + expectedV1 + "> OR <" + expectedV2 + "> OR <" + expectedV3 + "> in response."
         }
 
         return this

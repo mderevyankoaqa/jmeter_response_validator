@@ -1,15 +1,15 @@
 package mdqa.jmeter.response.validator
 
-import org.apache.jmeter.threads.JMeterContext
+import mdqa.jmeter.response.validator.models.TestContext
 
 abstract class ValidatorBase implements Validator {
 
     protected String validationMessage = ""
-    JMeterContext jmeterContext
+    TestContext testContext
 
-    protected ValidatorBase(JMeterContext ctx)
+    protected ValidatorBase(TestContext ctx)
     {
-        this.jmeterContext = ctx
+        this.testContext = ctx
     }
 
     @Override

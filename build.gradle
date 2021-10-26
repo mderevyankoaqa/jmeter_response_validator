@@ -5,10 +5,10 @@ plugins {
 }
 
 group 'mderevyankoqa'
-version = '0.2'
+version = '0.1'
 
 configurations {
-    jar.archiveName = 'jmeter-plugins-mdqa.shared.objects-'+version + '.jar'
+    jar.archiveName = 'mdqa.jmeter.response.validator-'+version + '.jar'
 }
 
 sourceCompatibility = 1.8
@@ -29,12 +29,10 @@ class JMeterRule implements ComponentMetadataRule {
 
 dependencies {
     compile 'org.codehaus.groovy:groovy-all:3.0.7'
-    implementation group: 'org.apache.jmeter', name: 'ApacheJMeter_core', version: '5.3'
-    implementation group: 'org.apache.jmeter', name: 'ApacheJMeter_java', version: '5.3'
-    implementation group: 'org.apache.jmeter', name: 'ApacheJMeter_components', version: '5.3'
-   // implementation group: 'org.apache.jmeter', name: 'jorphan', version: '5.3'
-   // implementation group: 'org.influxdb', name: 'influxdb-java', version: '2.20'
-   // implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
+    implementation group: 'org.apache.jmeter', name: 'ApacheJMeter_core', version: '5.4.1'
+    implementation group: 'org.apache.jmeter', name: 'ApacheJMeter_java', version: '5.4.1'
+    implementation group: 'org.apache.jmeter', name: 'ApacheJMeter_components', version: '5.4.1'
+
 
     components {
         withModule("org.apache.jmeter:ApacheJMeter_core", JMeterRule)

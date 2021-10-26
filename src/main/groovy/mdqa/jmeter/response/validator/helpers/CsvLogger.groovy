@@ -11,55 +11,14 @@ class CsvLogger implements Logger {
     private Response response
     private String path
 
-    private String csvRow = ""
-    private String separator
-
     boolean isEnabled
 
-    CsvLogger(JMeterContext ctx)
-    {
-        this.request = new Request(ctx)
-        this.response = new Response(ctx)
+    void setFilePath(String path) {
+        this.path = path
     }
 
-    CsvLogger setSeparator(String separator)
-    {
-        this.separator = separator
-
-        return this
-    }
-
-    CsvLogger useDefaultSeparator()
-    {
-        this.separator = "|"
-
-        return this
-    }
-
-    void setFilePath(String path)
-    {
-        if (path?.trim()) {
-            this.path = path
-        }
-        else
-        {
-            this.path = FileServer.getFileServer().getBaseDir()+"/ErrorLogs.csv"
-        }
-    }
-
-    private void putRequest(Request request)
-    {
-
-        String requestString = request.name.trim() + this.separator + request.url.trim() + this.separator + request.headers.trim() + this.separator + request.body + this.separator
-
-        this.csvRow += requestString
-    }
-
-    private void putResponse(Response response)
-    {
-        String responseString = response.code.trim() + this.separator + response.headers.trim() + this.separator + response.body + this.separator
-
-        this.csvRow += responseString
+    void useDefaultPath() {
+        this.path = FileServer.getFileServer().getBaseDir() + "/ErrorLogs.csv"
     }
 
     @Override
@@ -68,15 +27,10 @@ class CsvLogger implements Logger {
     }
 
     @Override
-    void saveErrorMessage(String error) {
+    void saveMessage(String message) {
 
-        if (error?.trim()) {
-
-            this.csvRow += error
-
-            if (this.isEnabled == true) {
-                FileServer.getFileServer().write(this.path, this.csvRow)
-            }
+        if (this.isEnabled == true) {
+            FileServer.getFileServer().write(this.path, message)
         }
     }
 }
