@@ -3,7 +3,6 @@ package mdqa.jmeter.response.validator.helpers
 import mdqa.jmeter.response.validator.models.Request
 import mdqa.jmeter.response.validator.models.Response
 import org.apache.jmeter.services.FileServer
-import org.apache.jmeter.threads.JMeterContext
 
 class CsvLogger implements Logger {
 
@@ -29,8 +28,14 @@ class CsvLogger implements Logger {
     @Override
     void saveMessage(String message) {
 
-        if (this.isEnabled == true) {
-            FileServer.getFileServer().write(this.path, message)
+        if (this.isEnabled) {
+            synchronized (this) {
+            def p = new PrintStream(new FileOutputStream(this.path, true));
+
+            // Write data to file
+            p.println(message)
+            p.close()
+                }
         }
     }
 }

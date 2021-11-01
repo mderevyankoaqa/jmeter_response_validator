@@ -8,7 +8,7 @@ abstract class JmeterObjectBase {
     protected JMeterContext ctx
     protected SampleResult prev
 
-    protected CreatorBase(JMeterContext ctx)
+    protected JmeterObjectBase(JMeterContext ctx)
     {
         this.ctx = ctx
         this.prev = this.ctx.getPreviousResult()

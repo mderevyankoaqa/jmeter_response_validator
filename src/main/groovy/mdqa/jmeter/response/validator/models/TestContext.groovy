@@ -4,19 +4,23 @@ import org.apache.jmeter.threads.JMeterContext
 
 class TestContext {
     private JMeterContext ctx
+    private Request request
+    private Response response
 
     TestContext(JMeterContext ctx)
     {
         this.ctx = ctx
+        this.request = new Request(this.ctx)
+        this.response = new Response(this.ctx)
     }
 
     Request getRequest()
     {
-        return new Request(this.ctx)
+        return this.request
     }
 
     Response getResponse()
     {
-        return new Response(this.ctx)
+        return this.response
     }
 }
