@@ -14,6 +14,10 @@ The supported versions:
 * Java 8
 * JMeter 5.4.1 and upper 
 
+
+## Installation 
+Put file `jmeter-plugins-mdqa-response-validator-x.x.jar` to `~\apache-jmeter-x.x.x\lib\ext`
+
 ## Example of the usage
 Add JSR223 Assertion with the following code:
 ~~~~
@@ -35,14 +39,14 @@ AssertionResult.setFailure(true)
 AssertionResult.setFailureMessage(responseValidator.getValidationMessage())
 
       String csvRow = new CSVRowBuilder(testContext)
-					.useDefaultSeparator()
+					.setSeparator("|")
 					.putRequest()
 					.putResponse()
 					.putErrorMessage(responseValidator.getValidationMessage())
 					.getRow()
 			
 	Logger logger = new CsvLogger()
-	        // checks whether the validation is enabled using JMeter variable
+	                // checks whether the validation is enabled using JMeter variable
 			logger.isEnabled(vars.get("LogIsEnabled").toBoolean())
 			// gets file path from variable
 			logger.setFilePath(vars.get("LogPath").toString())
@@ -50,4 +54,22 @@ AssertionResult.setFailureMessage(responseValidator.getValidationMessage())
 			logger.saveMessage(csvRow.replace("\n", "").replace("\r", ""))	 
 
 }
+~~~~
+
+## CSV file Caption
+
+For the code like bellow:
+
+~~~~
+String csvRow = new CSVRowBuilder(testContext)
+.setSeparator("|")
+.putRequest()
+.putResponse()
+.putErrorMessage(responseValidator.getValidationMessage())
+.getRow()
+~~~~
+
+You can use the CSV file caption
+~~~~
+request.name|request.url|request.headers|request.body|response.code|response.headers|response.body|error
 ~~~~

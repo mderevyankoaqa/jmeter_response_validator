@@ -27,7 +27,7 @@ class CSVRowBuilder {
 
     CSVRowBuilder useDefaultSeparator()
     {
-        this.separator = "|"
+        this.separator = ";"
 
         return this
     }
