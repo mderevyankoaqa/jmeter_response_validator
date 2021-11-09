@@ -158,9 +158,14 @@ TestContext testContext = new TestContext(ctx)
 
 ResponseValidator responseValidator = new ResponseValidator()
 			.thisResponse(testContext.getResponse())
+			// should pass pass, since we have 200 OK in the response
                .shouldHaveCode(&quot;200&quot;)
+               // should pass pass, since we have &quot;Google&quot; in the response
 		     .shouldContainText(&quot;Google&quot;)
-		     .shouldContainValuesWithOrLogic(&quot;Google&quot;,&quot;Test&quot;)
+		     // should pass, since we have OR condition, the&quot;Google&quot; exists but &quot;non existing value1&quot; -&gt; no
+		     .shouldContainValuesWithOrLogic(&quot;Google&quot;,&quot;non existing value1&quot;)
+		     // expected error here, since we have no &quot;non existing value1&quot; or &quot;non existing value2&quot;
+		     .shouldContainValuesWithOrLogic(&quot;non existing value1&quot;,&quot;non existing value2&quot;)
 
 if (responseValidator.isValid() == false) 
 {		     

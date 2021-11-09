@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'mderevyankoqa'
-version = '0.1'
+version = '0.2'
 
 configurations {
     jar.archiveName = 'jmeter-plugins-mdqa-response-validator-'+version + '.jar'

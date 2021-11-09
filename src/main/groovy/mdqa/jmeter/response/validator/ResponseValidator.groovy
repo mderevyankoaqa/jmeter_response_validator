@@ -31,15 +31,23 @@ class ResponseValidator extends ValidatorBase {
     }
 
     ResponseValidator shouldContainValuesWithOrLogic(String expectedV1, String expectedV2) {
-        if (!this.response.body.contains(expectedV1) || !this.response.body.contains(expectedV2)) {
-            this.validationMessage += "ERROR in body: There is no text <" + expectedV1 + "> OR <" + expectedV2 + ">  in response."
+        if (this.response.body.contains(expectedV1) || this.response.body.contains(expectedV2)) {
+            return this
         }
 
+        else
+        {
+            this.validationMessage += "ERROR in body: There is no text <" + expectedV1 + "> OR <" + expectedV2 + ">  in response."
+        }
         return this
     }
 
     ResponseValidator shouldContainValuesWithOrLogic(String expectedV1, String expectedV2, String expectedV3) {
-        if (!this.response.body.contains(expectedV1) || !this.response.body.contains(expectedV2) || !this.response.body.contains(expectedV3)) {
+        if (this.response.body.contains(expectedV1) || this.response.body.contains(expectedV2) || this.response.body.contains(expectedV3)) {
+            return this
+        }
+        else
+        {
             this.validationMessage += "ERROR in body: There is no text <" + expectedV1 + "> OR <" + expectedV2 + "> OR <" + expectedV3 + "> in response."
         }
 
